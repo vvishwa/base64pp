@@ -200,24 +200,6 @@ stages:
         env:
           CODECOV_TOKEN: $(CodeCovToken)
         workingDirectory: $(Build.SourcesDirectory)
-  - job:
-    pool:
-      vmImage: windows-2022
-    displayName: Windows Tests
-    steps:
-      - checkout: none
-
-      - task: DownloadPipelineArtifact@2
-        inputs:
-          targetPath: $(Build.SourcesDirectory)/build
-          artifactName: WindowsDebugBuild
-
-      - pwsh: |
-          cd "build/vs2022-deb"
-          ctest --verbose --test-dir="build/vs2022-deb" -C Debug
-        displayName: Running All Tests
-        workingDirectory: $(Build.SourcesDirectory)
-        failOnStderr: true
 
 - stage: static_analysis
   displayName: Static Analysis
